@@ -1,16 +1,18 @@
 import express from 'express';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from './config/prismaClient'
+import productRoutes from './modules/products/routes/productRoutes';
 
 const app = express();
-const prisma = new PrismaClient();
+
 
 app.use(express.json());
+app.use('/products', productRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: 'API funcionando con Express, TypeScript y Prisma!' });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
