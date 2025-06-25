@@ -1,6 +1,5 @@
 import express from 'express';
-import { prisma } from './config/prismaClient'
-import productRoutes from './modules/products/routes/productRoutes';
+import {productRoutes} from '../src/modules/products/routes/productRoutes';
 
 const app = express();
 
