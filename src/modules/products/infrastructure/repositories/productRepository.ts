@@ -1,8 +1,10 @@
 import { prismaClient } from "../../../../config/prismaClient";
 import { Product } from "../../domain/entities/product.entity";
+import { ProductRepositoryI } from '../../domain/repositories/productRepositoryI';
+
 const prisma = prismaClient;
 
-export const productRepository = {
+export const productRepository: ProductRepositoryI = {
   async create (data: Omit<Product, 'id' | 'createdAt' | 'updatedAt'>): Promise<Product> {
     return prisma.product.create({ data });
   },
