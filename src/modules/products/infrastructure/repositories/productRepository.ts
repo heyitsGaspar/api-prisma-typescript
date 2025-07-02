@@ -5,14 +5,23 @@ import { ProductRepositoryI } from '../../domain/repositories/productRepositoryI
 const prisma = prismaClient;
 
 export const productRepository: ProductRepositoryI = {
+  /**
+   * Creates a new product in the database.
+   * @param data - The product data to create.
+   * @returns The created product.
+   */
   async create (data: Omit<Product, 'id' | 'createdAt' | 'updatedAt'>): Promise<Product> {
     return prisma.product.create({ data });
   },
-
+  /**
+   * Finds a product by its ID.
+   * @param id - The ID of the product to find.
+   * @returns The found product or null if not found.
+   */
   async findById (id: string): Promise<Product | null> {
     return prisma.product.findUnique({ where: { id } });
   },
-
+  
   async findAll (): Promise<Product[]> {
     return prisma.product.findMany();
   },

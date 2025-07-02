@@ -6,3 +6,4 @@ import { createProductSchema} from '../../../shared/types/product/product.schema
 export const productRoutes = Router();
 
 productRoutes.post('/', validateBody(createProductSchema), productController.create);
+productRoutes.get('/', productController.getAll);
