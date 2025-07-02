@@ -22,8 +22,16 @@ export const productRepository: ProductRepositoryI = {
     return prisma.product.findUnique({ where: { id } });
   },
   
-  async findAll (): Promise<Product[]> {
-    return prisma.product.findMany();
+  async findAllPaginated (skip: number, take: number): Promise<Product[]> {
+    return prisma.product.findMany({
+      skip,
+      take,
+      orderBy: { createdAt: 'desc' }
+    });
+  },
+
+  async count(): Promise<number> {
+    return prisma.product.count();
   },
 
   async update (id: string, data: Partial<Omit<Product, 'id' | 'createdAt' | 'updatedAt'>>): Promise<Product | null> {
