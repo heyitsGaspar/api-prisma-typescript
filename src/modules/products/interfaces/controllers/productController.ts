@@ -1,3 +1,4 @@
+
 import { Request, Response } from 'express';
 import { productUseCaseCreate } from '../../application/useCases/productUseCaseCreate';
 import { productUseCaseGet } from '../../application/useCases/productUseCaseGet';
