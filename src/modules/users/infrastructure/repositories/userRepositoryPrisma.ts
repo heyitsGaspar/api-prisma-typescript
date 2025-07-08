@@ -6,6 +6,18 @@ const prisma = prismaClient;
 
 export const userRepository: UserRepositoryI = {
     async create(user: UserEntity): Promise<UserEntity> {
-        return prisma.users.create({ data: user });
+        return prisma.users.create({
+            data: {
+                name: user.name,
+                email: user.email,
+                password: user.password,
+                role: {
+                    connect: { id: user.roleId }
+                }
+            },
+            include:{
+                role: true // Include the role in the response
+            }
+        });
     }
 }

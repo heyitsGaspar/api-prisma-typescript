@@ -1,11 +1,13 @@
 import express from 'express';
 import { productRoutes } from '../src/modules/products/routes/productRoutes';
+import { usersRoutes } from '../src/modules/users/routes/users.routes';
 import { errorHandler } from '../src/shared/middlewares/errorHandler';
 
 const app = express();
 
 app.use(express.json());
 app.use('/products', productRoutes);
+app.use('/users', usersRoutes);
 
 app.use(errorHandler);
 
