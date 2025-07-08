@@ -1,7 +1,8 @@
 
-import { Request, Response,  } from 'express';
+import { Request, Response, NextFunction  } from 'express';
 import { productUseCaseCreate } from '../../application/useCases/productUseCaseCreate';
 import { productUseCaseGet } from '../../application/useCases/productUseCaseGet';
+import { productUseCaseGetById } from '../../application/useCases/productUseCaseGetById';
 
 export const productController = {
     /**
@@ -37,5 +38,21 @@ export const productController = {
         } catch (error) {
             res.status(500).json({ message: 'Error fetching products', error });
         }
+    }, 
+
+    async getById(req: Request, res: Response, next: NextFunction): Promise<void> { 
+        try {
+            const product = await productUseCaseGetById.getById(req.params.id);
+            if (!product) {
+                res.status(404).json({ message: 'Product not found' });
+                return;
+            }
+            res.status(200).json(product);
+        } catch (error) {
+           next(error); // Pass the error to the next middleware for centralized error handling
+        }
     }
+    
+
+    
 }

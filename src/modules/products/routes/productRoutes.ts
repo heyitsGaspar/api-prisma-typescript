@@ -8,3 +8,4 @@ export const productRoutes = Router();
 
 productRoutes.post('/', validateBody(createProductSchema), productController.create);
 productRoutes.get('/', validatedQuery(queryProductSchema), productController.getAll);
+productRoutes.get('/:id', productController.getById);
