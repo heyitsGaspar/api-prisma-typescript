@@ -4,6 +4,7 @@ import { productUseCaseCreate } from '../../application/useCases/productUseCaseC
 import { productUseCaseGet } from '../../application/useCases/productUseCaseGet';
 import { productUseCaseGetById } from '../../application/useCases/productUseCaseGetById';
 import { productUseCaseUpdate } from '../../application/useCases/productUseCaseUpdate';
+import { productUseCaseDelete } from '../../application/useCases/productUseCaseDelete';
 
 export const productController = {
     /**
@@ -65,7 +66,16 @@ export const productController = {
         } catch (error) {
             res.status(500).json({ message: 'Error updating product', error });
         }
-    }   
+    },
+
+    async delete (req: Request, res: Response): Promise<void> {
+        try {
+            await productUseCaseDelete.delete(req.params.id);
+            res.status(204).send(); 
+        } catch (error) {
+            res.status(500).json({ message: 'Error deleting product', error });
+        }
+    }
     
 
 

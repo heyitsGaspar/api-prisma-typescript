@@ -10,3 +10,4 @@ productRoutes.post('/', validateBody(createProductSchema), productController.cre
 productRoutes.get('/', validatedQuery(queryProductSchema), productController.getAll);
 productRoutes.get('/:id', productController.getById);
 productRoutes.put('/:id', validateBody(updateProductSchema), productController.update);
+productRoutes.delete('/:id', productController.delete);
