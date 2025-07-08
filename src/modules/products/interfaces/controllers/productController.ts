@@ -3,6 +3,7 @@ import { Request, Response, NextFunction  } from 'express';
 import { productUseCaseCreate } from '../../application/useCases/productUseCaseCreate';
 import { productUseCaseGet } from '../../application/useCases/productUseCaseGet';
 import { productUseCaseGetById } from '../../application/useCases/productUseCaseGetById';
+import { productUseCaseUpdate } from '../../application/useCases/productUseCaseUpdate';
 
 export const productController = {
     /**
@@ -51,8 +52,22 @@ export const productController = {
         } catch (error) {
            next(error); // Pass the error to the next middleware for centralized error handling
         }
-    }
+    },
+
+    async update (req: Request, res: Response): Promise <void>{
+        try {
+            const updatedProduct = await productUseCaseUpdate.update(req.params.id, req.body);
+            if (!updatedProduct) {
+                res.status(404).json({ message: 'Product not found' });
+                return;
+            }
+            res.status(200).json(updatedProduct);
+        } catch (error) {
+            res.status(500).json({ message: 'Error updating product', error });
+        }
+    }   
     
+
 
     
 }
