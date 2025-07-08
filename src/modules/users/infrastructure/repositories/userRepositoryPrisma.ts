@@ -19,5 +19,13 @@ export const userRepository: UserRepositoryI = {
                 role: true // Include the role in the response
             }
         });
+    },
+    
+
+    async findByEmail(email: string): Promise<UserEntity | null> {
+        return prisma.users.findUnique({
+            where: { email },
+            
+        });
     }
 }
