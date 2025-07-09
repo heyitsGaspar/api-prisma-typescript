@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { createUserByAdminUseCase } from '../../../users/application/useCases/createUserUseCase';
 import { userUseCaseGetAll } from '../../application/useCases/userUseCaseGetAll';
 import { userUseCaseFindById } from '../../application/useCases/userUseCaseFindbyId';
+import { userUseCaseUpdate } from '../../application/useCases/userUseCaseUpdate';
 
 export const usersController = {
 
@@ -46,5 +47,18 @@ export const usersController = {
         } catch (error) {
             next(error);
         }
-    }
+    },
+
+    async update(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const user = await userUseCaseUpdate.update(req.params.id, req.body);
+            if (!user) {
+                res.status(404).json({ message: 'User not found' });
+            } else {
+                res.status(200).json(user);
+            }
+        } catch (error) {
+            next(error);
+        }
+    },
 }

@@ -49,16 +49,21 @@ export const userRepository: UserRepositoryI = {
     },
 
     async update(id: string, user: Partial<UserEntity>): Promise<UserEntity | null> {
+        const dataToUpdate: any = {
+            name : user.name,
+            email: user.email,
+            password: user.password,
+        }
+
+        if(user.roleId != undefined){
+            dataToUpdate.role = {
+                connect: { id: user.roleId }
+            };
+        }
+
         return prisma.users.update({
             where: { id },
-            data: {
-                name: user.name,
-                email: user.email,
-                password: user.password,
-                role: {
-                    connect: { id: user.roleId }
-                }
-            },
+            data: dataToUpdate,
             include: {
                 role: true // Include the role in the response
             }

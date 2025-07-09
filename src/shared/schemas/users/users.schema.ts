@@ -8,8 +8,8 @@ export const createUserSchema = z.object({
 });
 
 export const updateUserSchema = z.object({
-    name: z.string().trim().optional(),
-    email: z.string().email().trim().optional(),
+    name: z.string().trim().min(1, 'El nombre no puede estar vacío').optional(),
+    email: z.string().trim().email().min(1, 'El correo no puede estar vacío').optional(),
     password: z.string().trim().min(6, 'La contraseña debe tener al menos 6 caracteres').optional(),
     roleId: z.number().int().positive().min(1, 'El rol es obligatorio').optional()
 });

@@ -8,10 +8,11 @@ export const createProductSchema = z.object({
 });
 
 export const updateProductSchema = z.object({
-    name: z.string().trim().optional(),
-    description: z.string().trim().optional(),
-    price: z.number().positive('El precio debe ser mayor a 0').optional(),
+    name: z.string().trim().min(1, 'El nombre no puede estar vacío').optional(),
+    description: z.string().trim().min(1, 'La descripción no puede estar vacía').optional(),
+    price: z.number().positive('El precio debe ser mayor a 0').optional()
 });
+
 
 
 export const productSchemaQuery = z.object({
