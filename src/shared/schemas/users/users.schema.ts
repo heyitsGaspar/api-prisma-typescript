@@ -6,3 +6,10 @@ export const createUserSchema = z.object({
     password: z.string().trim().min(6, 'La contraseña debe tener al menos 6 caracteres'),
     roleId: z.number().int().positive().min(1, 'El rol es obligatorio')
 });
+
+export const updateUserSchema = z.object({
+    name: z.string().trim().optional(),
+    email: z.string().email().trim().optional(),
+    password: z.string().trim().min(6, 'La contraseña debe tener al menos 6 caracteres').optional(),
+    roleId: z.number().int().positive().min(1, 'El rol es obligatorio').optional()
+});
