@@ -3,6 +3,7 @@ import { createUserByAdminUseCase } from '../../../users/application/useCases/cr
 import { userUseCaseGetAll } from '../../application/useCases/userUseCaseGetAll';
 import { userUseCaseFindById } from '../../application/useCases/userUseCaseFindbyId';
 import { userUseCaseUpdate } from '../../application/useCases/userUseCaseUpdate';
+import { userUseCaseDelete } from '../../application/useCases/userUseCaseDelete';
 
 export const usersController = {
 
@@ -61,4 +62,13 @@ export const usersController = {
             next(error);
         }
     },
+
+    async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            await userUseCaseDelete.delete(req.params.id);
+            res.status(204).send();
+        } catch (error) {
+            next(error);
+        }
+    }
 }

@@ -11,3 +11,4 @@ usersRoutes.post('/', validateBody(createUserSchema), usersController.create);
 usersRoutes.get('/', validatedQuery(querySchema), usersController.getAll);
 usersRoutes.get('/:id', usersController.getById);
 usersRoutes.put('/:id', validateBody(updateUserSchema), usersController.update);
+usersRoutes.delete('/:id', usersController.delete);
