@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { createUserByAdminUseCase } from '../../../users/application/useCases/createUserUseCase';
 import { userUseCaseGetAll } from '../../application/useCases/userUseCaseGetAll';
+import { userUseCaseFindById } from '../../application/useCases/userUseCaseFindbyId';
 
 export const usersController = {
 
@@ -30,6 +31,18 @@ export const usersController = {
             });
         }
         catch (error) {
+            next(error);
+        }
+    },
+
+    async getById(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const user = await userUseCaseFindById.findById(req.params.id);
+            if (!user) {
+                res.status(404).json({ message: 'User not found' });
+            }
+            res.status(200).json(user);
+        } catch (error) {
             next(error);
         }
     }

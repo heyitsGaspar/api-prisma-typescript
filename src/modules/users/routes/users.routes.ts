@@ -9,3 +9,4 @@ export const usersRoutes = Router();
 
 usersRoutes.post('/', validateBody(createUserSchema), usersController.create);
 usersRoutes.get('/', validatedQuery(querySchema), usersController.getAll);
+usersRoutes.get('/:id', usersController.getById);
